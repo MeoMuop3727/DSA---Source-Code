@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "tools.h"
 using namespace std;
 
 typedef vector<vector<int>> matrix;
@@ -13,16 +14,6 @@ void createObstacles(matrix &space, int number) {
     
     for (int i = 0; i < number; i++) 
         space[1 + rand() % (n - 2)][1 + rand() % (m - 2)] = 1;
-}
-void printMatrix(matrix &space) {
-    int n = space.size();
-    int m = space[0].size();
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) 
-            cout << space[i][j] << " ";
-        cout << "\n";
-    }
 }
 
 // Top - down
