@@ -13,21 +13,22 @@ void createSquare(matrix &space) {
 // Top - down
 int helper(matrix &space, matrix &memo, int i, int j) {
     // Base case 
+    // If memo[i][j] exsited
+    // Get and return it
+    if (memo[i][j] != -1) return memo[i][j];
+
+    // Check to avoid overflow
     if (i < 0 || j < 0) return 0;
 
     // If space[i][j] is 0
     // This means we can not create square
-    if (space[i][j] == 0) return 0;
+    if (space[i][j] == 0) return memo[i][j] = 0;
 
     // Else
     // Return 1
     // This mean we can create square
     // With the minimum size is 1
-    if (i == 0 || j == 0) return 1;
-
-    // If memo[i][j] exsited
-    // Get and return it
-    if (memo[i][j] != -1) return memo[i][j];
+    if (i == 0 || j == 0) return memo[i][j] = 1;
     
     int left = helper(space, memo, i - 1, j);
     int top = helper(space, memo, i, j - 1);
@@ -49,6 +50,9 @@ int maxSquare(matrix &space) {
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++)
             maxSide = max(maxSide, helper(space, memo, i, j));
+    
+    cout << endl;
+    printMatrix(memo);
 
     // Return the size of square
     // By maxSide * maxSide

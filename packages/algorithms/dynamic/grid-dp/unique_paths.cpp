@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "tools.h"
 using namespace std;
 
 typedef vector<vector<int>> matrix;
@@ -10,14 +11,14 @@ int helper(matrix &memo, int i, int j) {
     // Return 0
     if (i < 0 || j < 0) return 0;
 
+    // If calculated 
+    // Get and return it
+    if (memo[i][j] != -1) return memo[i][j];
+
     // Else if i == 0, or j == 0
     // This mean we have a[0][j] or a[i][0]
     // Return 1 to assign 
-    else if (i == 0 || j == 0) return 1;
-
-    // If calculated 
-    // Get and return it
-    if (memo[i][j] != 0) return memo[i][j];
+    if (i == 0 || j == 0) return memo[i][j] = 1;
     
     // Else
     // Assign for memo[i][j]
@@ -59,7 +60,8 @@ int uniquePaths(matrix &space) {
     int m = space[0].size(); // Column
 
     matrix memo(n, vector<int>(m, -1));
-    return helper(memo, n - 1, m - 1);
+    
+    return helper(space, memo);
 }
 
 int main() {

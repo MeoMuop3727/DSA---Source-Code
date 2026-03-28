@@ -16,8 +16,8 @@ int helper(matrix &space, matrix &memo, int i, int j) {
     // If i and j is at n - 1 and m - 1
     // Return the minimum health that needs to join in
     if (i == n - 1 && j == m - 1)
-        return max(1, 1 - space[n - 1][m - 1]);
-    
+        return memo[i][j] = max(1, 1 - space[n - 1][m - 1]);
+
     // If memo existed
     // Get and return it
     if (memo[i][j] != -1) return memo[i][j];

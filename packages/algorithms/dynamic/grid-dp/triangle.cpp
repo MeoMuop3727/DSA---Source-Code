@@ -19,7 +19,8 @@ matrix createTriangle(int h, int a = 1, int b = 5) {
 int helper(matrix &triangle, matrix &memo, int i, int j) {
     // Base case
     // Build floor of the triangle
-    if (i == (int)triangle.size() - 1) return triangle[i][j];
+    if (i == (int)triangle.size() - 1) 
+        return memo[i][j] = triangle[i][j];
 
     // If memo existed
     // Get and return it

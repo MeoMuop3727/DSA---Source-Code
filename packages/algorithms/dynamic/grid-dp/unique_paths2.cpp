@@ -22,19 +22,19 @@ int helper(matrix &space, matrix &memo, int i, int j) {
     // If i and j overflow
     // Return 0 to advoid to the result
     if (i < 0 || j < 0) return 0;
+
+    // If memo existed
+    // Get and return it
+    if (memo[i][j] != -1) return memo[i][j];
     
     // If the space at i and j is equal 1
     // This mean we have been blocked
     // Return 0 to present do not have path
-    if (space[i][j] == 1) return 0;
+    if (space[i][j] == 1) return memo[i][j] = 0;
 
     // Else return 1
     // For each element arr[i][0] or arr[0][j]
-    if (i == 0 || j == 0) return 1;
-    
-    //  If memo existed
-    // Get and return it
-    if (memo[i][j] != -1) return memo[i][j];
+    if (i == 0 || j == 0) return memo[i][j] = 1;
 
     return memo[i][j] = helper(space, memo, i - 1, j) + helper(space, memo, i, j - 1);
 }

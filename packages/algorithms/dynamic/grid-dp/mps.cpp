@@ -4,14 +4,6 @@ using namespace std;
 
 typedef vector<vector<int>> matrix;
 
-void createSpace(matrix &space, int a, int b) {
-    srand(time(NULL));
-
-    for (auto &row : space)
-        for (int &e : row) 
-            e = rand() % (b - a + 1) + a;
-}
-
 // Top - down
 int helper(matrix &space, matrix &memo, int i, int j) {
     // Base case
@@ -19,13 +11,13 @@ int helper(matrix &space, matrix &memo, int i, int j) {
     // Return 0 to avoid to result
     if (i < 0 || j < 0) return 0;
 
-    // If i and j are 0
-    // Return space at 0 and 0
-    if (i == 0 && j == 0) return space[0][0];
-
     // If memo existed
     // Get and return it
     if (memo[i][j] != -1) return memo[i][j];
+
+    // If i and j are 0
+    // Return space at 0 and 0
+    if (i == 0 && j == 0) return memo[i][j] = space[0][0];
 
     // If i still is not 0
     // i - 1 to translate to the left by one level
