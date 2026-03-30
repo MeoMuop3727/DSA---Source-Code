@@ -1,7 +1,9 @@
 #pragma once
-#include <bits/stdc++.h>
+#include <vector>
+#include <iostream>
 
 typedef std::vector<std::vector<int>> matrix;
+typedef std::vector<matrix> matrix3D; 
 
 // void printMatrix(matrix &space) {
 //     int n = space.size();
@@ -20,6 +22,12 @@ void printMatrix(matrix &space) {
             std::cout << e << " ";
         std::cout << "\n";
     }
+}
+
+void forEach(std::vector<int> &arr) {
+    for (int &e : arr)
+        std::cout << e << " ";
+    std::cout << "\n";
 }
 
 void createSpace(matrix &space, int a, int b) {
