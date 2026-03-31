@@ -2,6 +2,7 @@
 #include <vector>
 #include <climits>
 #include <stack>
+#include "../dynamic/grid-dp/tools.h"
 
 namespace add_tools {
     int lrh(std::vector<int> &heights) {
@@ -91,4 +92,26 @@ namespace add_tools {
         // Return maximum rectangle
         return maxRect;
     }
+
+    int helper(std::vector<int> &values, std::vector<int> &weights, int maxWeight, matrix &memo, int n) {
+        /* Just using in add.h
+        A secondary function which support for knapsack_bool function */
+        if (n == 0 || maxWeight == 0) return 0;
+
+        if (memo[n - 1][maxWeight] != -1) return memo[n - 1][maxWeight];
+
+        int pick = 0;
+        if (weights[n - 1] <= maxWeight)
+            pick = values[n - 1] + helper(values, weights, maxWeight - weights[n - 1], memo, n - 1);
+        
+        int notPick = helper(values, weights, maxWeight, memo, n - 1);
+
+        return std::max(pick, notPick);
+    }
+    int knapsack_bool(std::vector<int> &values, std::vector<int> &weights, int maxWeight) {
+        int n = values.size();
+        matrix memo(n + 1, std::vector<int>(maxWeight + 1, - 1));
+        return helper(values, weights, maxWeight, memo, n);
+    }
+
 }
