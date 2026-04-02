@@ -114,4 +114,20 @@ namespace add_tools {
         return helper(values, weights, maxWeight, memo, n);
     }
 
+    int lcs1(const std::string &s1, const std::string &s2) {
+        int n = s1.size(); // Column
+        int m = s2.size(); // Row
+
+        matrix memo(m + 1, std::vector<int>(n + 1, 0));
+        
+        for (int i = 1; i <= n; i++)
+            for (int j = 1; j <= m; j++) {
+                if (s1[i - 1] == s2[j - 1]) 
+                    memo[i][j] = memo[i - 1][j - 1] + 1;
+                else  
+                    memo[i][j] = std::max(memo[i - 1][j], memo[i][j - 1]);
+            }
+        
+        return memo[n][m];
+    }
 }
