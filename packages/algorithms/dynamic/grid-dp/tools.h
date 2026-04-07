@@ -12,7 +12,7 @@ using space2D = std::vector<std::vector<T>>; // A vector 2D for each value
 void printMatrix(matrix &space) {
     for (auto &row : space) {
         for (int &e : row)
-            std::cout << e << " ";
+            std::cout << e << "\t";
         std::cout << "\n";
     }
 }
@@ -39,6 +39,30 @@ std::string to_reverse(std::string str) {
     for (int i = str.size() - 1; i >= 0; i--)
         rev += str[i];
     return rev;
+}
+
+// To calculate sum of the array from i to j
+int sumArray(std::vector<int> &arr, int i, int j) {
+    int result = 0;
+
+    for (; i <= j; i++)
+        result += arr[i];
+    
+    return result;
+}
+
+// To create a prefix sum from the array
+// Return the prefix sum array with the size n + 1
+std::vector<int> createPrefixSum(std::vector<int> &arr) {
+    int n = arr.size();
+    std::vector<int> prefixSum(n + 1);
+
+    prefixSum[0] = 0;
+
+    for (int i = 0; i < n; i++)
+        prefixSum[i + 1] = sumArray(arr, 0, i);
+        
+    return prefixSum;
 }
 
 
