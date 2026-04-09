@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include "../tree.h"
 using namespace std;
+using namespace trees;
 
 class BinarySearchTree {
     private:
@@ -44,23 +45,19 @@ class BinarySearchTree {
         }
 
         // Function finds a node in binary search tree
-        // Return bool
-        // + Time Complexity: O(n)
+        // Return node
+        // + Time Complexity: O(h)
         // + Space Complexity: O(n)
-        bool count(int value, Node *root) {
-            if (!root) return false;
+        Node *find(int value, Node *root) {
+            if (!root) return nullptr;
 
-            queue<Node*> q;
-            q.push(root);
-
-            while (!q.empty()) {
-                Node *current = q.front(); q.pop();
-                if (current->value == value) return true;
-                if (current->left) q.push(current->left);
-                if (current->right) q.push(current->right);
+            while (root) {
+                if (root->value == value) return root;
+                else if  (root->value > value) root = root->left;
+                else root = root->right;
             }
 
-            return false;
+            return nullptr;
         }
 
         // Function finds and deletes a node in binary search tree

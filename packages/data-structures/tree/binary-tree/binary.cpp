@@ -3,7 +3,7 @@
 using namespace std;
 
 class BinaryTree {
-    private:
+    private: 
         size_t size = 0;
         vector<int> nums;
         Node *root = nullptr;

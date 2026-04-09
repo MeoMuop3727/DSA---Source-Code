@@ -2,28 +2,31 @@
 #include <iostream>
 #include <queue>
 
-/**
+namespace trees {
+    /**
     * @brief        Node of tree
     * @param value  Value of node
     * @param left   Address of left node
     * @param right  Address of right node 
-*/
-class Node {
-    public:
-        int value;
-        Node *left, *right;
-        Node(int value) : value(value), left(nullptr), right(nullptr) {}
-};
+    */
+    class Node {
+        public:
+            int value;
+            Node *left, *right;
+            Node(int value) : value(value), left(nullptr), right(nullptr) {}
+    };
 
-// Function prints the tree which uses BFS
-void printTree(Node *root) {
-    std::queue<Node*> q;
-    q.push(root);
+    // Function prints the tree which uses BFS
+    template<typename T>
+    void printTree(T *root) {
+        std::queue<T*> q;
+        q.push(root);
 
-    while (!q.empty()) {
-        Node *current = q.front(); q.pop();
-        std::cout << current->value << " ";
-        if (current->left) q.push(current->left);
-        if (current->right) q.push(current->right);
+        while (!q.empty()) {
+            T *current = q.front(); q.pop();
+            std::cout << current->value << " ";
+            if (current->left) q.push(current->left);
+            if (current->right) q.push(current->right);
+        }
     }
 }
