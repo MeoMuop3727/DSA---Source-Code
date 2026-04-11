@@ -14,7 +14,6 @@ class AVLTree {
     private:
         Node *root = nullptr;
         vector<int> nums;
-        size_t size = 0;
 
         // Find the maximal node in left subtree
         Node *find_max_left_tree(Node *node) {

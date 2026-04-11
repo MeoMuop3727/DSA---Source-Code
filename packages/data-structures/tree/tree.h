@@ -29,4 +29,19 @@ namespace trees {
             if (current->right) q.push(current->right);
         }
     }
+
+    // Function search a value in binary search tree
+    // Return node
+    template<typename T>
+    T *searchTree(T *root, int value) {
+        if (!root) return nullptr;
+
+        if (value < root->value)
+            return searchTree(root->left, value);
+        else if (value > root->value)
+            return searchTree(root->right, value);
+        else return root;
+
+        return nullptr;
+    }
 }
