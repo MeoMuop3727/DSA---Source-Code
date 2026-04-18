@@ -2,15 +2,13 @@
 using namespace std;
 
 enum State {
-    EMPTY, // The element is not pushed to table
+    EMPTY, // The element is not pushed to table (or being deleted)
     OCCUPIED, // The element was pushed to table
-    DELETED // The element was deleted to table
 };
-
 class OpenAddressing {
     private:
         int m; // The number of buckets
-        int n; // The number of keys
+        int n = 0; // The number of keys
 
         vector<pair<int,State>> table; // {key, state}
 
@@ -21,8 +19,11 @@ class OpenAddressing {
         // PROBING STRATEGIES
         // ==================
 
+        // Use when wanting load factor < 0.5 
         int linear(int key, int i) { return (hashFirst(key) + i) % m; }
+        // Use when wanting the performance higher than linear
         int quadratic(int key, int i) { return (hashFirst(key) + i + (i * i)) % m; }
+        // Use when wanting the load factor > 0.7 - 0.8
         int doubleHash(int key, int i) { return (hashFirst(key) + i * hashSecond(key)) % m; }
 
         void rehash() {
@@ -30,6 +31,9 @@ class OpenAddressing {
             table.clear();
 
             m *= 2;
+            n = 0;
+
+            table.resize(m);
 
             for (auto &[key, state] : old_table) insert(key);
         }
@@ -46,7 +50,7 @@ class OpenAddressing {
          * @param element The key
          */
         void insert(int element) {
-            if ((n + 1.0) / m > 0.7) { rehash(); }
+            if ((n + 1.0) / m > 0.5) { rehash(); }
 
             int i = 0;
 
@@ -64,8 +68,43 @@ class OpenAddressing {
             }
         }
 
+        /**
+         * @brief Search a key in table
+         * @param target The key 
+         */
         int search(int target) {
+            int i = 0;
 
+            while (i < m) {
+                int index = linear(target, i);
+
+                if (table[index].second == OCCUPIED
+                    && table[index].first == target) return index;
+                
+                i++;
+            }
+
+            return -1;
+        }
+
+        /**
+         * @brief Delete a key in table
+         * @param target The key 
+         */
+        bool remove(int target) {
+            int i = 0;
+
+            while (i < m) {
+                int index = linear(target, i);
+
+                if (table[index].second == OCCUPIED
+                    && table[index].first == target) {
+                        table[index].second = EMPTY;
+                        return true;
+                    }
+            }
+
+            return false;
         }
 };
 
